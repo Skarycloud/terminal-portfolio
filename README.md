@@ -2,7 +2,7 @@
 
 ![Terminal Portfolio Banner](https://github.com/Skarycloud/terminal-portfolio/blob/main/terminal-portfolio.png)
 
-## 🔗 [Live Demo](https://sumanth-kumar-portfolio.vercel.app/)
+## 🔗 [Live Demo](https://terminal-portfolio-seven-kohl.vercel.app/)
 
 ## 📊 About The Project
 
