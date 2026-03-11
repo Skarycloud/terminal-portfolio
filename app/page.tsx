@@ -18,6 +18,14 @@ export default function TerminalPortfolio() {
   const [isExiting, setIsExiting] = useState(false)
   const [exitStage, setExitStage] = useState(0)
   const [exitText, setExitText] = useState<string[]>([])
+  
+  // Interactive greeting state
+  const [isAskingName, setIsAskingName] = useState(false)
+  const [userName, setUserName] = useState("")
+
+  // Download state
+  const [isDownloading, setIsDownloading] = useState(false)
+  const [downloadProgress, setDownloadProgress] = useState(0)
 
   // Terminal welcome message
   useEffect(() => {
@@ -45,47 +53,94 @@ export default function TerminalPortfolio() {
     inputRef.current?.focus()
   }, [])
 
+    // Helper for responsive titles
+  const getBoxedTitle = (title: string, padding = 15) => {
+    // Generate dashes dynamically based on viewport width approximation or just use standard
+    const innerText = `  ${title}  `
+    return [
+      `+-------------------------------------------------+`,
+      `| ${title.padEnd(47)} |`,
+      `+-------------------------------------------------+`,
+    ]
+  }
+
   // Handle command execution
   const executeCommand = (cmd: string) => {
-    const trimmedCmd = cmd.trim().toLowerCase()
+    const trimmedCmd = cmd.trim()
+    const lowerCmd = trimmedCmd.toLowerCase()
     let output: string[] = []
 
-    // Add command to history
-    if (trimmedCmd) {
-      setCommandHistory((prev) => [trimmedCmd, ...prev])
+    // Add command to history (only if not asking for name)
+    if (trimmedCmd && !isAskingName) {
+      setCommandHistory((prev) => [lowerCmd, ...prev])
       setHistoryIndex(-1)
     }
 
     // Process commands
-    if (trimmedCmd === "help") {
+    if (isAskingName) {
+      // We are waiting for the user's name
+      const name = trimmedCmd || "Guest"
+      setUserName(name)
+      setIsAskingName(false)
       output = [
-        "Available commands:",
-        "  about       - Display information about Sumanth Kumar",
-        "  skills      - List technical skills",
-        "  projects    - Show portfolio projects",
-        "  experience  - Show work experience",
-        "  education   - Show educational background",
-        "  certifications - Show certifications and achievements",
-        "  contact     - Display contact information",
-        "  clear       - Clear the terminal screen",
-        "  exit        - Close the terminal (refresh to restart)",
+        "",
+        `Hello, ${name}! How are you doing? Hope you're doing well! 😊`,
+        "I'm Sumanth Kumar's digital assistant.",
+        "What can I help you with?",
+        'Type "help" to see what I can do for you.',
         "",
       ]
-    } else if (trimmedCmd === "about") {
+      setHistory((prev) => [...prev, `What is your name? > ${trimmedCmd}`, ...output])
+      setInput("")
+      setCursorPosition(0)
+      return
+    }
+
+    if (lowerCmd === "hi" || lowerCmd === "hello") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│                  SUMANTH KUMAR                  │",
-        "│      Full Stack Developer | React | Node.js     │",
-        "│                   Bangalore, India              │",
-        "└─────────────────────────────────────────────────┘",
+        "",
+        "Hi there! 👋 I'm Sumanth Kumar (well, his terminal portfolio at least!).",
+        "It's great to meet you.",
+        "",
+      ]
+      setIsAskingName(true)
+      setHistory((prev) => [...prev, `C:\\Users\\${userName || "Guest"}>${cmd}`, ...output])
+      setInput("")
+      setCursorPosition(0)
+      return
+    }
+
+    if (lowerCmd === "help") {
+      output = [
+        "Available commands:",
+        "  about          - Display information about Sumanth Kumar",
+        "  skills         - List technical skills",
+        "  projects       - Show portfolio projects",
+        "  experience     - Show work experience",
+        "  education      - Show educational background",
+        "  certifications - Show certifications",
+        "  download       - Download my CV/Resume",
+        "  contact        - Display contact information",
+        "  clear          - Clear the terminal screen",
+        "  exit           - Close the terminal",
+        "",
+      ]
+    } else if (lowerCmd === "about") {
+      output = [
+        "==================================================",
+        "                  SUMANTH KUMAR                   ",
+        "       Full Stack Developer | React | Node.js     ",
+        "                  Mangalore, India                ",
+        "==================================================",
         "",
         "PROFESSIONAL SUMMARY",
         "",
-        "Passionate Full Stack Developer skilled in React, React Native - Android development,",
-        "modern JavaScript, and AI-powered automation, focused on building scalable",
-        "real-world applications. Strong communication and collaboration skills,",
-        "problem-solving ability, experience in Agile development environments,",
-        "and rapid prototyping and development using AI-assisted tools.",
+        "Passionate Full Stack Developer skilled in React, React Native",
+        "(Android development), modern JavaScript, and AI-powered automation.",
+        "Focused on building scalable real-world applications. Strong",
+        "communication and collaboration skills, problem-solving ability,",
+        "experience in Agile environments, and rapid prototyping using",
+        "AI-assisted tools.",
         "",
         "WHY HIRE ME?",
         "✓ Fast problem solver & AI-driven development enthusiast",
@@ -97,18 +152,20 @@ export default function TerminalPortfolio() {
         'Type "skills", "projects", or "contact" to learn more.',
         "",
       ]
-    } else if (trimmedCmd === "skills") {
+    } else if (lowerCmd === "skills") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│                    SKILLS                        │",
-        "└─────────────────────────────────────────────────┘",
+        "==================================================",
+        "                      SKILLS                      ",
+        "==================================================",
         "",
         "Frontend:",
-        "  • React.js, React Native, Next.js, JavaScript (ES6+)",
-        "  • TypeScript, HTML5, CSS3, Tailwind CSS",
+        "  • React.js, React Native, Next.js",
+        "  • JavaScript (ES6+), TypeScript",
+        "  • HTML5, CSS3, Tailwind CSS",
         "",
         "Backend & Databases:",
-        "  • Node.js, Express.js, REST APIs, JWT Authentication",
+        "  • Node.js, Express.js, REST APIs",
+        "  • JWT Authentication",
         "  • MongoDB, PostgreSQL (Supabase), SQL",
         "",
         "Mobile Development:",
@@ -120,50 +177,53 @@ export default function TerminalPortfolio() {
         "",
         "AI, Automation & Design:",
         "  • Python, n8n Automation",
-        "  • ChatGPT, Claude, Gemini, AI-assisted development, Prompt Engineering",
+        "  • ChatGPT, Claude, Gemini",
+        "  • AI-assisted development, Prompt Engineering",
         "  • Figma, UI/UX Design",
         "",
       ]
-    } else if (trimmedCmd === "projects") {
+    } else if (lowerCmd === "projects") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│                   PROJECTS                       │",
-        "└─────────────────────────────────────────────────┘",
+        "==================================================",
+        "                     PROJECTS                     ",
+        "==================================================",
         "",
         "1. eMenu - QR-Based Digital Menu Platform",
-        "   • Built a React/Next.js platform enabling restaurants to manage menus digitally",
-        "   • Integrated Google Sheets/CSV for real-time menu updates",
+        "   • A React/Next.js platform enabling restaurants to",
+        "     manage menus digitally",
+        "   • Integrated Google Sheets/CSV for live updates",
         "",
         "2. Scavenge - Scavenger Hunt Adventure Platform",
-        "   • Developed an interactive platform using React, Node.js, and Maps API",
-        "   • Implemented custom hunt creation, real-time GPS tracking, and leaderboards",
+        "   • Interactive platform built with React, Node.js",
+        "   • Custom hunt creation, GPS tracking, and leaderboards",
         "",
         "3. image-π – Privacy-First Browser Image Toolkit",
-        "   • Created a client-side image processing toolkit using Canvas/Web APIs",
-        "   • Added features for compression, format conversion, cropping, and watermarking",
+        "   • Client-side image toolkit using Canvas/Web APIs",
+        "   • Features compression, format conversion, cropping",
         "",
-        "4. Code Stack - Developer Tools & Resources Directory",
-        "   • Built an open-source Next.js directory for frontend/backend tools",
+        "4. Code Stack - Developer Tools Directory",
+        "   • Open-source Next.js directory for devs",
         "",
-        "5. Oryx AI – AI Training Data & Model Evaluation Platform",
-        "   • Developed a Node.js/React platform offering standardized AI training datasets",
+        "5. Oryx AI – AI Training Data Platform",
+        "   • Node.js/React platform for evaluating AI models",
         "",
-        "Type \"project1\", \"project2\", \"project3\", \"project4\", or \"project5\" for more details.",
+        "Type \"project1\" (up to 5) for more details.",
         "",
       ]
-    } else if (["project1", "project2", "project3", "project4", "project5"].includes(trimmedCmd)) {
-      const projectNum = trimmedCmd.charAt(7)
+    } else if (["project1", "project2", "project3", "project4", "project5"].includes(lowerCmd)) {
+      const projectNum = lowerCmd.charAt(7)
       const projectDetails: Record<string, string[]> = {
         "1": [
-          "┌─────────────────────────────────────────────────┐",
-          "│     eMenu - QR-Based Digital Menu Platform       │",
-          "└─────────────────────────────────────────────────┘",
+          "==================================================",
+          "      eMenu - QR-Based Digital Menu Platform      ",
+          "==================================================",
           "",
-          "A QR-based digital menu platform that enables restaurants",
-          "and cafés to publish and update menus instantly without printing.",
+          "A QR-based digital menu platform that enables",
+          "restaurants and cafés to publish and update menus",
+          "instantly without printing.",
           "",
           "Key Features:",
-          "  • Google Sheets/CSV-powered menu management system",
+          "  • Google Sheets/CSV-powered menu management",
           "  • QR-based menu access & analytics",
           "  • Multi-category menu management",
           "  • Real-time updates for items & pricing",
@@ -175,12 +235,12 @@ export default function TerminalPortfolio() {
           "",
         ],
         "2": [
-          "┌─────────────────────────────────────────────────┐",
-          "│    Scavenge - Scavenger Hunt Adventure Platform  │",
-          "└─────────────────────────────────────────────────┘",
+          "==================================================",
+          "   Scavenge - Scavenger Hunt Adventure Platform   ",
+          "==================================================",
           "",
-          "An interactive platform that allows users to create and",
-          "participate in real-world scavenger hunt games.",
+          "An interactive platform for creating and participating",
+          "in real-world scavenger hunt games.",
           "",
           "Key Features:",
           "  • Custom hunt creation & team-based gameplay",
@@ -194,17 +254,17 @@ export default function TerminalPortfolio() {
           "",
         ],
         "3": [
-          "┌─────────────────────────────────────────────────┐",
-          "│   image-π – Privacy-First Browser Image Toolkit  │",
-          "└─────────────────────────────────────────────────┘",
+          "==================================================",
+          "   image-π – Privacy-First Browser Image Toolkit  ",
+          "==================================================",
           "",
-          "A browser-based image processing toolkit that processes",
-          "images locally without server uploads ensuring privacy.",
+          "A browser-based image toolkit that processes",
+          "images locally ensuring privacy.",
           "",
           "Key Features:",
-          "  • Tools: Compression, format conversion, cropping",
+          "  • Compression, format conversion, cropping",
           "  • Background removal & EXIF stripping",
-          "  • Base64 conversion, QR code & favicon generator",
+          "  • Base64 conversion, QR code generator",
           "  • Fast client-side processing",
           "",
           "Technologies:",
@@ -213,16 +273,16 @@ export default function TerminalPortfolio() {
           "",
         ],
         "4": [
-          "┌─────────────────────────────────────────────────┐",
-          "│   Code Stack - Developer Tools Directory         │",
-          "└─────────────────────────────────────────────────┘",
+          "==================================================",
+          "      Code Stack - Developer Tools Directory      ",
+          "==================================================",
           "",
           "An open-source developer resource platform organizing",
-          "frameworks, tools, and resources into a structured directory.",
+          "frameworks, tools, and resources.",
           "",
           "Key Features:",
-          "  • Clean, responsive UI for discovering technologies",
-          "  • Conceptually organized for frontend, backend, databases",
+          "  • Clean, responsive UI for discovering tech",
+          "  • Conceptually organized tools",
           "  • Searchable directory structure",
           "",
           "Technologies:",
@@ -231,9 +291,9 @@ export default function TerminalPortfolio() {
           "",
         ],
         "5": [
-          "┌─────────────────────────────────────────────────┐",
-          "│ Oryx AI – AI Training Data Evaluation Platform   │",
-          "└─────────────────────────────────────────────────┘",
+          "==================================================",
+          "   Oryx AI – AI Training Data Evaluation Platform  ",
+          "==================================================",
           "",
           "A platform providing standardized training datasets and",
           "evaluation tools for AI/LLM models.",
@@ -250,70 +310,79 @@ export default function TerminalPortfolio() {
         ],
       }
       output = projectDetails[projectNum] || ["Project details not found."]
-    } else if (trimmedCmd === "experience") {
+    } else if (lowerCmd === "experience") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│                  EXPERIENCE                      │",
-        "└─────────────────────────────────────────────────┘",
+        "==================================================",
+        "                    EXPERIENCE                    ",
+        "==================================================",
         "",
-        "Frontend Programmer (MEAN Stack) | Ants Applied DataScience",
-        "Nov 2023 - Mar 2025",
-        "  • Developed Ants Portfolio Analyzer, a financial analytics platform for Cap stocks",
-        "  • Successfully converted the web application into an Android app using Ionic Capacitor",
-        "  • Contributed to Solar Data Lake for real-time solar power plant IoT monitoring",
-        "  • Worked on AI and data analysis projects, integrating R scripts for analysis",
-        "  • Built interactive dashboards and implemented subscription-based models",
+        "Associate MERN Stack Developer | Mirchi35 PVT LTD",
+        "Sep 2025 - Present",
+        "  • Developed React Native (Expo) Android apps",
+        "    for a hyperlocal discovery platform",
+        "  • Configured Expo projects, handled Android builds",
+        "    and prepared apps for Google Play Console",
+        "  • Designed UI/UX layouts in Figma and developed",
+        "    the responsive landing page",
+        "  • Integrated APIs, performed testing and debugging",
         "",
-        "Associate MERN Stack Developer & Test Engineer | Mirchi35 Private Limited",
-        "Mar 2023 - Oct 2023",
-        "  • Built and launched two React Native (Expo) Android apps for a vendor/user platform",
-        "  • Handled Android builds and Google Play Console deployment",
-        "  • Designed UI/UX layouts in Figma and developed the responsive landing page",
+        "Frontend Programmer (MEAN) | Ants Applied DataScience",
+        "Nov 2023 - Apr 2025",
+        "  • Developed Ants Portfolio Analyzer, a financial analytics",
+        "    platform providing insights on Cap stocks",
+        "  • Built interactive dashboards and a subscription model",
+        "  • Converted web application to an Android mobile app",
+        "    using Ionic Capacitor",
+        "  • Contributed to Solar Data Lake for real-time solar",
+        "    IoT monitoring through dashboards",
+        "  • Worked on AI and data analysis projects using R scripts",
         "",
         "Assistant Software Programmer (Intern) | Ants Applied DataScience",
         "Mar 2023 - Oct 2023",
-        "  • Assisted in AI and ML projects, including data cleaning and standardization",
-        "  • Integrated RESTful APIs and applied new technologies to development tasks",
+        "  • Assisted in AI and ML related projects, including",
+        "    data cleaning, preprocessing and standardization",
+        "  • Worked with dev teams to support data-driven apps",
+        "  • Integrated RESTful APIs for technical tasks",
         "",
       ]
-    } else if (trimmedCmd === "education") {
+    } else if (lowerCmd === "education") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│                  EDUCATION                       │",
-        "└─────────────────────────────────────────────────┘",
+        "==================================================",
+        "                     EDUCATION                    ",
+        "==================================================",
         "",
         "Bachelor of Computer Applications (BCA)",
-        "Manipal University Jaipur | Remote, India | May 2024 - May 2027",
+        "Manipal University Jaipur | May 2024 - May 2027",
         "",
         "Diploma in Computer Science & Engineering",
-        "S J (Govt) Polytechnic | Bangalore, India | Nov 2021 - May 2023 | GPA: 9.0",
+        "S J (Govt) Polytechnic | Nov 2021 - May 2023 (GPA: 9.0)",
         "",
       ]
-    } else if (trimmedCmd === "certifications") {
+    } else if (lowerCmd === "certifications") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│           CERTIFICATIONS & ACHIEVEMENTS          │",
-        "└─────────────────────────────────────────────────┘",
+        "==================================================",
+        "           CERTIFICATIONS & ACHIEVEMENTS          ",
+        "==================================================",
         "",
-        "• HTML, CSS, and JavaScript for Web Developers – Johns Hopkins University (Coursera)",
-        "• Developing Cloud Apps with Node.js and React – IBM (Coursera)",
+        "• HTML, CSS, & JS for Web Devs – Johns Hopkins (Coursera)",
+        "• Cloud Apps with Node.js and React – IBM (Coursera)",
         "• AI for Everyone – DeepLearning.AI (Coursera)",
         "• Docker for absolute beginners (Coursera)",
-        "• ChatGPT Prompt Engineering for Developers (DeepLearning.AI)",
+        "• ChatGPT Prompt Engineering for Developers",
         "",
       ]
-    } else if (trimmedCmd === "contact") {
+    } else if (lowerCmd === "contact") {
       output = [
-        "┌─────────────────────────────────────────────────┐",
-        "│                   CONTACT                        │",
-        "└─────────────────────────────────────────────────┘",
+        "==================================================",
+        "                     CONTACT                      ",
+        "==================================================",
         "",
         "Email: sumanth.k.0202@gmail.com",
         "Phone: +91 8970732689",
         "GitHub: github.com/Skarycloud",
         "LinkedIn: linkedin.com/in/sumanth-kumar-230194294",
         "Portfolio: sumanth-kumar-portfolio.vercel.app",
-        "Location: Bangalore, India",
+        "Location: Mangalore, India",
         "",
         "Feel free to reach out for collaboration or opportunities!",
         "LET'S CONNECT!",
@@ -321,11 +390,60 @@ export default function TerminalPortfolio() {
       ]
     } else if (trimmedCmd === "clear") {
       setHistory([])
+      setInput("")
+      setCursorPosition(0)
       return
     } else if (trimmedCmd === "exit") {
       setIsExiting(true)
       setExitStage(0)
       startExitSequence()
+      return
+    } else if (lowerCmd === "download" || lowerCmd === "download cv") {
+      setIsDownloading(true)
+      setDownloadProgress(0)
+      setHistory((prev) => [...prev, `C:\\Users\\${userName || "Guest"}>${cmd}`, "Initiating secure connection to download server...", "Preparing CV document for transfer..."])
+      setInput("")
+      setCursorPosition(0)
+      
+      let progress = 0
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 15) + 5 // random progress jumps
+        if (progress > 100) progress = 100
+        setDownloadProgress(progress)
+        
+        if (progress === 100) {
+          clearInterval(interval)
+          setTimeout(() => {
+            // Trigger actual download
+            try {
+              const link = document.createElement('a')
+              // Download from the public/assets directory
+              link.href = '/assets/Sumanth_Kumar_Resume.pdf' 
+              link.download = 'Sumanth_Kumar_Resume.pdf'
+              document.body.appendChild(link)
+              link.click()
+              document.body.removeChild(link)
+            } catch (e) {
+              console.error("Failed to download file.", e)
+            }
+            
+            setIsDownloading(false)
+            setHistory((prev) => [
+              ...prev, 
+              "", 
+              "✅ Download complete! The file has been saved to your local device.",
+              "If the download didn't start automatically, please make sure your browser allows downloads.",
+              ""
+            ])
+            // Scroll to bottom
+            setTimeout(() => {
+              if (terminalRef.current) {
+                terminalRef.current.scrollTop = terminalRef.current.scrollHeight
+              }
+            }, 10)
+          }, 500)
+        }
+      }, 300) // approx 3 seconds total
       return
     } else if (trimmedCmd) {
       output = [
@@ -336,8 +454,9 @@ export default function TerminalPortfolio() {
     }
 
     // Update terminal history
-    setHistory((prev) => [...prev, `C:\\Users\\Sumanth>${cmd}`, ...output])
+    setHistory((prev) => [...prev, `C:\\Users\\${userName || "Guest"}>${cmd}`, ...output])
     setInput("")
+    setCursorPosition(0)
   }
 
   // Handle key navigation in command history
@@ -464,18 +583,18 @@ export default function TerminalPortfolio() {
       {/* Terminal header */}
       <div className="flex items-center justify-between bg-[#1E1E1E] p-2 border-b border-[#333] z-10 select-none shadow-md">
         <div className="flex items-center">
-          <div className="h-4 w-4 bg-[#13A10E] mr-2 ml-1 shadow-[0_0_8px_#13A10E]"></div>
-          <span className="text-sm font-semibold tracking-wider text-[#CCCCCC]">Command Prompt - Sumanth Kumar Portfolio</span>
+          <div className="h-3 w-3 md:h-4 md:w-4 bg-[#13A10E] mr-2 ml-1 shadow-[0_0_8px_#13A10E]"></div>
+          <span className="text-xs md:text-sm font-semibold tracking-wider text-[#CCCCCC]">Terminal - Sumanth Kumar</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <button className="text-[#CCCCCC] hover:bg-[#333] p-1 rounded transition-colors">
-            <Minus className="h-4 w-4" />
+        <div className="flex items-center space-x-1 md:space-x-2">
+          <button className="text-[#CCCCCC] hover:bg-[#333] p-1 rounded transition-colors hidden sm:block">
+            <Minus className="h-3 w-3 md:h-4 md:w-4" />
           </button>
-          <button className="text-[#CCCCCC] hover:bg-[#333] p-1 rounded transition-colors">
-            <Square className="h-4 w-4" />
+          <button className="text-[#CCCCCC] hover:bg-[#333] p-1 rounded transition-colors hidden sm:block">
+            <Square className="h-3 w-3 md:h-4 md:w-4" />
           </button>
           <button className="text-[#CCCCCC] hover:bg-[#C50F1F] hover:text-white p-1 rounded transition-colors">
-            <X className="h-4 w-4" />
+            <X className="h-3 w-3 md:h-4 md:w-4" />
           </button>
         </div>
       </div>
@@ -483,7 +602,7 @@ export default function TerminalPortfolio() {
       {/* Terminal content */}
       <div 
         ref={terminalRef} 
-        className="flex-1 p-4 overflow-auto bg-[#0C0C0C] z-10" 
+        className="flex-1 p-2 md:p-4 overflow-auto bg-[#0C0C0C] z-10 text-xs sm:text-sm md:text-base w-full overflow-x-hidden" 
         style={{ textShadow: "0 0 2px rgba(204, 204, 204, 0.3)" }}
         onClick={handleTerminalClick}
       >
@@ -509,11 +628,18 @@ export default function TerminalPortfolio() {
           <>
             {/* Terminal history */}
             {history.map((line, index) => {
-              if (line.startsWith("C:\\Users\\Sumanth>")) {
+              const isPrompt = line.startsWith("C:\\Users\\")
+              const isNamePrompt = line.startsWith("What is your name? >")
+              
+              if (isPrompt || isNamePrompt) {
+                const splitIndex = line.indexOf(">")
+                const promptPart = line.substring(0, splitIndex + 1)
+                const commandPart = line.substring(splitIndex + 1)
+                
                 return (
                   <div key={index} className="whitespace-pre-wrap break-words flex items-start">
-                    <span className="text-[#13A10E] mr-2 shrink-0">C:\Users\Sumanth&gt;</span>
-                    <span className="text-[#CCCCCC]">{line.substring(17)}</span>
+                    <span className="text-[#13A10E] mr-2 shrink-0">{promptPart}</span>
+                    <span className="text-[#CCCCCC]">{commandPart}</span>
                   </div>
                 )
               }
@@ -525,9 +651,24 @@ export default function TerminalPortfolio() {
               )
             })}
 
-            {/* Current command line */}
-            <div className="flex items-start">
-              <span className="text-[#13A10E] mr-2 shrink-0">C:\Users\Sumanth&gt;</span>
+            {/* Loading Indicator */}
+            {isDownloading && (
+              <div className="mb-2">
+                <div className="text-[#CCCCCC] mb-1">Downloading: Sumanth_Kumar_Resume.pdf</div>
+                <div className="flex items-center text-[#13A10E]">
+                  <span className="mr-2">[</span>
+                  <span>{'='.repeat(Math.floor(downloadProgress / 5))}{' '.repeat(20 - Math.floor(downloadProgress / 5))}</span>
+                  <span className="ml-2">] {downloadProgress}%</span>
+                </div>
+              </div>
+            )}
+
+            {/* Current command line (only show if not exiting and not downloading) */}
+            {!isExiting && !isDownloading && (
+              <div className="flex items-start">
+                <span className="text-[#13A10E] mr-2 shrink-0">
+                {isAskingName ? "What is your name? >" : `C:\\Users\\${userName || "Guest"}>`}
+              </span>
               <div className="relative flex-1 break-all whitespace-pre-wrap outline-none">
                 <span>{input.slice(0, cursorPosition)}</span>
                 <span
@@ -551,21 +692,22 @@ export default function TerminalPortfolio() {
                 autoFocus
               />
             </div>
+            )}
           </>
         )}
       </div>
 
       {/* Social links footer */}
-      <div className="flex items-center justify-between bg-[#1E1E1E] p-2 text-xs border-t border-[#333] z-10 select-none">
-        <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between bg-[#1E1E1E] p-3 text-xs md:text-sm border-t border-[#333] z-10 select-none gap-2 sm:gap-0">
+        <div className="flex flex-wrap justify-center items-center gap-3 sm:space-x-4 sm:gap-0">
           <a
             href="https://github.com/Skarycloud"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors"
           >
-            <Github className="h-4 w-4 mr-1" />
-            <span>GitHub</span>
+            <Github className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+            <span className="hidden sm:inline">GitHub</span>
           </a>
           <a
             href="https://linkedin.com/in/sumanth-kumar-230194294"
@@ -573,12 +715,12 @@ export default function TerminalPortfolio() {
             rel="noopener noreferrer"
             className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors"
           >
-            <Linkedin className="h-4 w-4 mr-1" />
-            <span>LinkedIn</span>
+            <Linkedin className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+            <span className="hidden sm:inline">LinkedIn</span>
           </a>
           <a href="mailto:sumanth.k.0202@gmail.com" className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors">
-            <Mail className="h-4 w-4 mr-1" />
-            <span>Email</span>
+            <Mail className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+            <span className="hidden sm:inline">Email</span>
           </a>
           <a
             href="https://sumanth-kumar-portfolio.vercel.app/"
@@ -586,13 +728,12 @@ export default function TerminalPortfolio() {
             rel="noopener noreferrer"
             className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors"
           >
-            <ExternalLink className="h-4 w-4 mr-1" />
-            <span>Portfolio</span>
+            <ExternalLink className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+            <span className="hidden sm:inline">Portfolio</span>
           </a>
         </div>
-        <div className="flex items-center text-[#AAAAAA]">
-          <span>Bangalore, India</span>
-          <ExternalLink className="h-3 w-3 ml-1" />
+        <div className="hidden sm:flex items-center text-[#AAAAAA]">
+          <span>Mangalore, India</span>
         </div>
       </div>
     </div>
