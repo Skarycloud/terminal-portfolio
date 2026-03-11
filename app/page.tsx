@@ -26,7 +26,7 @@ export default function TerminalPortfolio() {
       "(c) Microsoft Corporation. All rights reserved.",
       "",
       "Welcome to Sumanth Kumar's Portfolio Terminal.",
-      "Frontend Developer | React | AI & ML",
+      "Full Stack Developer | React | Node.js | AI",
       'Type "help" to see available commands.',
       "",
     ]
@@ -75,18 +75,17 @@ export default function TerminalPortfolio() {
       output = [
         "┌─────────────────────────────────────────────────┐",
         "│                  SUMANTH KUMAR                  │",
-        "│         Frontend Developer | React | AI & ML    │",
-        "│                   Mangalore, India              │",
+        "│      Full Stack Developer | React | Node.js     │",
+        "│                   Bangalore, India              │",
         "└─────────────────────────────────────────────────┘",
         "",
         "PROFESSIONAL SUMMARY",
         "",
-        "Passionate Frontend Developer with expertise in React.js, JavaScript, and AI-driven",
-        "development. Experienced in building scalable web applications, integrating APIs, and",
-        "optimizing workflows using AI technologies. Adept at solving complex problems efficiently,",
-        "working with cross-functional teams, and leading frontend development. Working knowledge of",
-        "Node.js, Express, MongoDB for backend integration. Fast learner, adaptable, and always",
-        "innovating!",
+        "Passionate Full Stack Developer skilled in React, React Native - Android development,",
+        "modern JavaScript, and AI-powered automation, focused on building scalable",
+        "real-world applications. Strong communication and collaboration skills,",
+        "problem-solving ability, experience in Agile development environments,",
+        "and rapid prototyping and development using AI-assisted tools.",
         "",
         "WHY HIRE ME?",
         "✓ Fast problem solver & AI-driven development enthusiast",
@@ -105,28 +104,24 @@ export default function TerminalPortfolio() {
         "└─────────────────────────────────────────────────┘",
         "",
         "Frontend:",
-        "  • React.js, HTML, CSS, JavaScript",
-        "  • Tailwind CSS, Bootstrap",
-        "  • Ionic Framework",
+        "  • React.js, React Native, Next.js, JavaScript (ES6+)",
+        "  • TypeScript, HTML5, CSS3, Tailwind CSS",
         "",
-        "Backend Knowledge:",
-        "  • Node.js, Express.js (working knowledge)",
+        "Backend & Databases:",
+        "  • Node.js, Express.js, REST APIs, JWT Authentication",
+        "  • MongoDB, PostgreSQL (Supabase), SQL",
         "",
-        "Databases Knowledge:",
-        "  • MongoDB, Firebase (working knowledge)",
+        "Mobile Development:",
+        "  • React Native, Expo Go, Ionic Capacitor",
         "",
-        "DevOps & Tools:",
-        "  • Docker, Git, GitHub",
-        "  • Postman",
-        "  • CI/CD (Netlify, Vercel)",
+        "Tools & Platforms:",
+        "  • Git, GitHub, Docker, Postman",
+        "  • Vercel, Netlify, Hostinger",
         "",
-        "AI & ML:",
-        "  • Python, AI-driven development",
-        "",
-        "Other:",
-        "  • API Integration",
-        "  • JWT Authentication",
-        "  • Performance Optimization",
+        "AI, Automation & Design:",
+        "  • Python, n8n Automation",
+        "  • ChatGPT, Claude, Gemini, AI-assisted development, Prompt Engineering",
+        "  • Figma, UI/UX Design",
         "",
       ]
     } else if (trimmedCmd === "projects") {
@@ -135,87 +130,122 @@ export default function TerminalPortfolio() {
         "│                   PROJECTS                       │",
         "└─────────────────────────────────────────────────┘",
         "",
-        "1. Solar Data Lake",
-        "   • Built a real-time global monitoring platform for solar power plants",
-        "   • Integrated APIs to fetch and visualize live power generation & performance analytics",
-        "   • Developed a role-based user system for plant operators, analysts, and admins",
+        "1. eMenu - QR-Based Digital Menu Platform",
+        "   • Built a React/Next.js platform enabling restaurants to manage menus digitally",
+        "   • Integrated Google Sheets/CSV for real-time menu updates",
         "",
-        "2. Ants Portfolio Analyzer",
-        "   • Developed an investment tracking platform with React, API integrations, and real-time analytics",
-        "   • Built interactive tables & ROI calculations for Large Cap, Mid Cap, and Small Cap stocks",
-        "   • Transformed the platform into an Android app for mobile accessibility",
+        "2. Scavenge - Scavenger Hunt Adventure Platform",
+        "   • Developed an interactive platform using React, Node.js, and Maps API",
+        "   • Implemented custom hunt creation, real-time GPS tracking, and leaderboards",
         "",
-        "3. Market Basket Analysis",
-        "   • Designed the UI for Market Basket Analysis and integrated R scripts for data processing",
-        "   • Implemented a dashboard to display association rules & product recommendations",
+        "3. image-π – Privacy-First Browser Image Toolkit",
+        "   • Created a client-side image processing toolkit using Canvas/Web APIs",
+        "   • Added features for compression, format conversion, cropping, and watermarking",
         "",
-        'Type "project1", "project2", or "project3" for more details.',
+        "4. Code Stack - Developer Tools & Resources Directory",
+        "   • Built an open-source Next.js directory for frontend/backend tools",
+        "",
+        "5. Oryx AI – AI Training Data & Model Evaluation Platform",
+        "   • Developed a Node.js/React platform offering standardized AI training datasets",
+        "",
+        "Type \"project1\", \"project2\", \"project3\", \"project4\", or \"project5\" for more details.",
         "",
       ]
-    } else if (["project1", "project2", "project3"].includes(trimmedCmd)) {
+    } else if (["project1", "project2", "project3", "project4", "project5"].includes(trimmedCmd)) {
       const projectNum = trimmedCmd.charAt(7)
-      const projectDetails = {
+      const projectDetails: Record<string, string[]> = {
         "1": [
           "┌─────────────────────────────────────────────────┐",
-          "│                Solar Data Lake                   │",
+          "│     eMenu - QR-Based Digital Menu Platform       │",
           "└─────────────────────────────────────────────────┘",
           "",
-          "A real-time global monitoring platform for solar power plants.",
+          "A QR-based digital menu platform that enables restaurants",
+          "and cafés to publish and update menus instantly without printing.",
           "",
           "Key Features:",
-          "  • Real-time monitoring of solar power plants globally",
-          "  • Live power generation and performance analytics visualization",
-          "  • Role-based user system (plant operators, analysts, admins)",
-          "  • API integrations for seamless data flow",
-          "  • Performance optimizations for handling large datasets",
+          "  • Google Sheets/CSV-powered menu management system",
+          "  • QR-based menu access & analytics",
+          "  • Multi-category menu management",
+          "  • Real-time updates for items & pricing",
           "",
           "Technologies:",
-          "  • React.js for frontend interface",
-          "  • API integrations for real-time data",
-          "  • Role-based authentication system",
-          "  • Data visualization components",
+          "  • React, Next.js, Node.js, JavaScript",
+          "  • Google Sheets Integration",
+          "  • QR Code Integration",
           "",
         ],
         "2": [
           "┌─────────────────────────────────────────────────┐",
-          "│             Ants Portfolio Analyzer              │",
+          "│    Scavenge - Scavenger Hunt Adventure Platform  │",
           "└─────────────────────────────────────────────────┘",
           "",
-          "An investment tracking platform for stock market analysis.",
+          "An interactive platform that allows users to create and",
+          "participate in real-world scavenger hunt games.",
           "",
           "Key Features:",
-          "  • Investment tracking with real-time analytics",
-          "  • Interactive tables for stock performance",
-          "  • ROI calculations for Large Cap, Mid Cap, and Small Cap stocks",
-          "  • Mobile accessibility through Android app conversion",
-          "  • API integrations for market data",
+          "  • Custom hunt creation & team-based gameplay",
+          "  • Real-time GPS tracking & live leaderboards",
+          "  • Chat, progress tracking & event management",
+          "  • QR code challenges",
           "",
           "Technologies:",
-          "  • React.js for web platform",
-          "  • Ionic Framework for Android conversion",
-          "  • API integrations for market data",
-          "  • Interactive data visualization",
+          "  • React, JavaScript, Node.js",
+          "  • Maps API, QR Code Integration",
           "",
         ],
         "3": [
           "┌─────────────────────────────────────────────────┐",
-          "│             Market Basket Analysis               │",
+          "│   image-π – Privacy-First Browser Image Toolkit  │",
           "└─────────────────────────────────────────────────┘",
           "",
-          "A dashboard for market basket analysis and product recommendations.",
+          "A browser-based image processing toolkit that processes",
+          "images locally without server uploads ensuring privacy.",
           "",
           "Key Features:",
-          "  • UI for Market Basket Analysis",
-          "  • Integration with R scripts for data processing",
-          "  • Dashboard for association rules display",
-          "  • Product recommendation system",
-          "  • Data visualization for analytics",
+          "  • Tools: Compression, format conversion, cropping",
+          "  • Background removal & EXIF stripping",
+          "  • Base64 conversion, QR code & favicon generator",
+          "  • Fast client-side processing",
           "",
           "Technologies:",
-          "  • React.js for frontend interface",
-          "  • R script integration",
-          "  • Data visualization components",
-          "  • Dashboard design and implementation",
+          "  • React, TypeScript, JavaScript",
+          "  • HTML5, CSS3, Canvas API, Web APIs",
+          "",
+        ],
+        "4": [
+          "┌─────────────────────────────────────────────────┐",
+          "│   Code Stack - Developer Tools Directory         │",
+          "└─────────────────────────────────────────────────┘",
+          "",
+          "An open-source developer resource platform organizing",
+          "frameworks, tools, and resources into a structured directory.",
+          "",
+          "Key Features:",
+          "  • Clean, responsive UI for discovering technologies",
+          "  • Conceptually organized for frontend, backend, databases",
+          "  • Searchable directory structure",
+          "",
+          "Technologies:",
+          "  • Next.js, TypeScript, React",
+          "  • Tailwind CSS",
+          "",
+        ],
+        "5": [
+          "┌─────────────────────────────────────────────────┐",
+          "│ Oryx AI – AI Training Data Evaluation Platform   │",
+          "└─────────────────────────────────────────────────┘",
+          "",
+          "A platform providing standardized training datasets and",
+          "evaluation tools for AI/LLM models.",
+          "",
+          "Key Features:",
+          "  • Dataset repositories & preprocessing pipelines",
+          "  • Format transformation tools & model analytics",
+          "  • API-based data access & credit-based usage",
+          "",
+          "Technologies:",
+          "  • Node.js, React, Python",
+          "  • Tailwind CSS, JavaScript",
           "",
         ],
       }
@@ -226,26 +256,24 @@ export default function TerminalPortfolio() {
         "│                  EXPERIENCE                      │",
         "└─────────────────────────────────────────────────┘",
         "",
-        "Frontend Developer | Ants Applied DataScience",
-        "Nov 2024 - Present",
-        "  • Developed and optimized Ants Portfolio Analyzer, a React-based stock market tool",
-        "    for investment tracking",
-        "  • Designed and built the Momentum Discovery Page, integrating line graphs and",
-        "    API-driven data visualization",
-        "  • Converted Ants Portfolio Analyzer into an Android app using Ionic Framework",
-        "    and Android Studio",
-        "  • Led frontend development for Solar Data Lake, a real-time solar power monitoring",
-        "    platform, collaborating with backend & data science teams",
-        "  • Implemented performance optimizations, API integrations, and AI-driven features",
-        "    to enhance workflow automation",
+        "Frontend Programmer (MEAN Stack) | Ants Applied DataScience",
+        "Nov 2023 - Mar 2025",
+        "  • Developed Ants Portfolio Analyzer, a financial analytics platform for Cap stocks",
+        "  • Successfully converted the web application into an Android app using Ionic Capacitor",
+        "  • Contributed to Solar Data Lake for real-time solar power plant IoT monitoring",
+        "  • Worked on AI and data analysis projects, integrating R scripts for analysis",
+        "  • Built interactive dashboards and implemented subscription-based models",
         "",
-        "Frontend Programmer Intern | Ants Applied DataScience",
-        "March 2024 - October 2024",
-        "  • Designed the Market Basket Analysis UI using React.js and integrated R scripts",
-        "    for real-time analytics",
-        "  • Developed the AntsAI.in company homepage using WordPress, HTML, CSS, and",
-        "    JavaScript for a high-performance landing page",
-        "  • Collaborated with backend teams to integrate APIs and ensure seamless data flow",
+        "Associate MERN Stack Developer & Test Engineer | Mirchi35 Private Limited",
+        "Mar 2023 - Oct 2023",
+        "  • Built and launched two React Native (Expo) Android apps for a vendor/user platform",
+        "  • Handled Android builds and Google Play Console deployment",
+        "  • Designed UI/UX layouts in Figma and developed the responsive landing page",
+        "",
+        "Assistant Software Programmer (Intern) | Ants Applied DataScience",
+        "Mar 2023 - Oct 2023",
+        "  • Assisted in AI and ML projects, including data cleaning and standardization",
+        "  • Integrated RESTful APIs and applied new technologies to development tasks",
         "",
       ]
     } else if (trimmedCmd === "education") {
@@ -254,11 +282,11 @@ export default function TerminalPortfolio() {
         "│                  EDUCATION                       │",
         "└─────────────────────────────────────────────────┘",
         "",
-        "Bachelor of Computer Applications (BCA) [Remote Learning]",
-        "Manipal University Jaipur | Sept 2024 - Present",
+        "Bachelor of Computer Applications (BCA)",
+        "Manipal University Jaipur | Remote, India | May 2024 - May 2027",
         "",
-        "Diploma in Computer Science",
-        "S J (Govt) Polytechnic | Nov 2021 - May 2023",
+        "Diploma in Computer Science & Engineering",
+        "S J (Govt) Polytechnic | Bangalore, India | Nov 2021 - May 2023 | GPA: 9.0",
         "",
       ]
     } else if (trimmedCmd === "certifications") {
@@ -285,7 +313,7 @@ export default function TerminalPortfolio() {
         "GitHub: github.com/Skarycloud",
         "LinkedIn: linkedin.com/in/sumanth-kumar-230194294",
         "Portfolio: sumanth-kumar-portfolio.vercel.app",
-        "Location: Mangalore, India",
+        "Location: Bangalore, India",
         "",
         "Feel free to reach out for collaboration or opportunities!",
         "LET'S CONNECT!",
@@ -429,28 +457,36 @@ export default function TerminalPortfolio() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-gray-300 font-mono">
+    <div className="flex flex-col h-screen bg-[#0C0C0C] text-[#CCCCCC] font-mono selection:bg-[#CCCCCC] selection:text-[#0C0C0C] relative overflow-hidden">
+      {/* CRT Scanline Overlay */}
+      <div className="absolute inset-0 pointer-events-none z-50 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-20"></div>
+
       {/* Terminal header */}
-      <div className="flex items-center justify-between bg-gray-800 p-2">
+      <div className="flex items-center justify-between bg-[#1E1E1E] p-2 border-b border-[#333] z-10 select-none shadow-md">
         <div className="flex items-center">
-          <div className="h-4 w-4 bg-blue-500 mr-2"></div>
-          <span className="text-sm">Command Prompt - Sumanth Kumar Portfolio</span>
+          <div className="h-4 w-4 bg-[#13A10E] mr-2 ml-1 shadow-[0_0_8px_#13A10E]"></div>
+          <span className="text-sm font-semibold tracking-wider text-[#CCCCCC]">Command Prompt - Sumanth Kumar Portfolio</span>
         </div>
         <div className="flex items-center space-x-2">
-          <button className="text-gray-400 hover:text-white">
+          <button className="text-[#CCCCCC] hover:bg-[#333] p-1 rounded transition-colors">
             <Minus className="h-4 w-4" />
           </button>
-          <button className="text-gray-400 hover:text-white">
+          <button className="text-[#CCCCCC] hover:bg-[#333] p-1 rounded transition-colors">
             <Square className="h-4 w-4" />
           </button>
-          <button className="text-gray-400 hover:text-white">
+          <button className="text-[#CCCCCC] hover:bg-[#C50F1F] hover:text-white p-1 rounded transition-colors">
             <X className="h-4 w-4" />
           </button>
         </div>
       </div>
 
       {/* Terminal content */}
-      <div ref={terminalRef} className="flex-1 p-4 overflow-auto bg-black" onClick={handleTerminalClick}>
+      <div 
+        ref={terminalRef} 
+        className="flex-1 p-4 overflow-auto bg-[#0C0C0C] z-10" 
+        style={{ textShadow: "0 0 2px rgba(204, 204, 204, 0.3)" }}
+        onClick={handleTerminalClick}
+      >
         {isExiting ? (
           <div className="h-full flex flex-col justify-center items-center">
             {exitText.map((line, index) => (
@@ -459,10 +495,10 @@ export default function TerminalPortfolio() {
                 className={cn(
                   "font-mono whitespace-pre text-center",
                   exitStage === 0
-                    ? "text-green-400 animate-pulse"
+                    ? "text-[#13A10E] animate-pulse"
                     : exitStage === 1
-                      ? "text-blue-400 animate-binary"
-                      : "text-red-400 animate-pulse",
+                      ? "text-[#3A96DD] animate-binary"
+                      : "text-[#C50F1F] animate-pulse",
                 )}
               >
                 {line}
@@ -472,24 +508,38 @@ export default function TerminalPortfolio() {
         ) : (
           <>
             {/* Terminal history */}
-            {history.map((line, index) => (
-              <div key={index} className="whitespace-pre-wrap break-words">
-                {line}
-              </div>
-            ))}
+            {history.map((line, index) => {
+              if (line.startsWith("C:\\Users\\Sumanth>")) {
+                return (
+                  <div key={index} className="whitespace-pre-wrap break-words flex items-start">
+                    <span className="text-[#13A10E] mr-2 shrink-0">C:\Users\Sumanth&gt;</span>
+                    <span className="text-[#CCCCCC]">{line.substring(17)}</span>
+                  </div>
+                )
+              }
+              const isError = line.includes("not recognized")
+              return (
+                <div key={index} className={cn("whitespace-pre-wrap break-words", isError ? "text-[#C50F1F]" : "")}>
+                  {line}
+                </div>
+              )
+            })}
 
             {/* Current command line */}
-            <div className="flex items-center">
-              <span>C:\Users\Sumanth&gt;</span>
-              <div className="relative flex-1 ml-0.5">
-                <span>{input}</span>
+            <div className="flex items-start">
+              <span className="text-[#13A10E] mr-2 shrink-0">C:\Users\Sumanth&gt;</span>
+              <div className="relative flex-1 break-all whitespace-pre-wrap outline-none">
+                <span>{input.slice(0, cursorPosition)}</span>
                 <span
-                  className={cn("absolute inline-block w-2 h-5 bg-gray-300", isBlinking ? "animate-blink" : "")}
-                  style={{
-                    left: `${cursorPosition * 0.6}rem`,
-                    opacity: isBlinking ? undefined : 1,
-                  }}
-                ></span>
+                  className={cn(
+                    "inline-block min-w-[0.6em] h-[1.2rem] align-text-bottom",
+                    isBlinking ? "animate-blink bg-[#CCCCCC] text-[#0C0C0C]" : "bg-[#CCCCCC] text-[#0C0C0C]",
+                    "whitespace-pre"
+                  )}
+                >
+                  {input.charAt(cursorPosition) || " "}
+                </span>
+                <span>{input.slice(cursorPosition + 1)}</span>
               </div>
               <input
                 ref={inputRef}
@@ -497,7 +547,7 @@ export default function TerminalPortfolio() {
                 value={input}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                className="absolute opacity-0 w-0 h-0"
+                className="opacity-0 absolute w-0 h-0"
                 autoFocus
               />
             </div>
@@ -506,13 +556,13 @@ export default function TerminalPortfolio() {
       </div>
 
       {/* Social links footer */}
-      <div className="flex items-center justify-between bg-gray-800 p-2 text-xs">
+      <div className="flex items-center justify-between bg-[#1E1E1E] p-2 text-xs border-t border-[#333] z-10 select-none">
         <div className="flex items-center space-x-4">
           <a
             href="https://github.com/Skarycloud"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center hover:text-white"
+            className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors"
           >
             <Github className="h-4 w-4 mr-1" />
             <span>GitHub</span>
@@ -521,12 +571,12 @@ export default function TerminalPortfolio() {
             href="https://linkedin.com/in/sumanth-kumar-230194294"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center hover:text-white"
+            className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors"
           >
             <Linkedin className="h-4 w-4 mr-1" />
             <span>LinkedIn</span>
           </a>
-          <a href="mailto:sumanth.k.0202@gmail.com" className="flex items-center hover:text-white">
+          <a href="mailto:sumanth.k.0202@gmail.com" className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors">
             <Mail className="h-4 w-4 mr-1" />
             <span>Email</span>
           </a>
@@ -534,14 +584,14 @@ export default function TerminalPortfolio() {
             href="https://sumanth-kumar-portfolio.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center hover:text-white"
+            className="flex items-center text-[#AAAAAA] hover:text-[#13A10E] transition-colors"
           >
             <ExternalLink className="h-4 w-4 mr-1" />
             <span>Portfolio</span>
           </a>
         </div>
-        <div className="flex items-center">
-          <span>Mangalore, India</span>
+        <div className="flex items-center text-[#AAAAAA]">
+          <span>Bangalore, India</span>
           <ExternalLink className="h-3 w-3 ml-1" />
         </div>
       </div>
