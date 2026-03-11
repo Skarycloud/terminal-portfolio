@@ -27,6 +27,9 @@ export default function TerminalPortfolio() {
   const [isDownloading, setIsDownloading] = useState(false)
   const [downloadProgress, setDownloadProgress] = useState(0)
 
+  // Link state
+  const [currentProjectLink, setCurrentProjectLink] = useState("")
+
   // Terminal welcome message
   useEffect(() => {
     const welcomeMessage = [
@@ -82,6 +85,7 @@ export default function TerminalPortfolio() {
       const name = trimmedCmd || "Guest"
       setUserName(name)
       setIsAskingName(false)
+      setCurrentProjectLink("") // Reset on new thread
       output = [
         "",
         `Hello, ${name}! How are you doing? Hope you're doing well! 😊`,
@@ -111,6 +115,7 @@ export default function TerminalPortfolio() {
     }
 
     if (lowerCmd === "help") {
+      setCurrentProjectLink("")
       output = [
         "Available commands:",
         "  about          - Display information about Sumanth Kumar",
@@ -126,6 +131,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (lowerCmd === "about") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "                  SUMANTH KUMAR                   ",
@@ -153,6 +159,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (lowerCmd === "skills") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "                      SKILLS                      ",
@@ -183,6 +190,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (lowerCmd === "projects") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "                     PROJECTS                     ",
@@ -309,8 +317,38 @@ export default function TerminalPortfolio() {
           "",
         ],
       }
+      const projectLinks: Record<string, string> = {
+        "1": "https://emenuweb.com/",
+        "2": "https://scavenge.rs/",
+        "3": "https://image-pi-dusky.vercel.app/",
+        "4": "https://codestack-sigma.vercel.app/",
+        "5": "https://oryx-ai.vercel.app/",
+      }
+      
       output = projectDetails[projectNum] || ["Project details not found."]
+      if (projectLinks[projectNum]) {
+        setCurrentProjectLink(projectLinks[projectNum])
+        output.push(`Type "link" to open this project in a new tab.`)
+        output.push("")
+      } else {
+        setCurrentProjectLink("")
+      }
+    } else if (lowerCmd === "link") {
+      if (currentProjectLink) {
+        output = [
+          `Opening ${currentProjectLink} in a new tab...`,
+          "",
+        ]
+        window.open(currentProjectLink, "_blank")
+      } else {
+        output = [
+          "No project currently selected to open.",
+          'View a project by typing "project1" through "project5" first.',
+          "",
+        ]
+      }
     } else if (lowerCmd === "experience") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "                    EXPERIENCE                    ",
@@ -346,6 +384,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (lowerCmd === "education") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "                     EDUCATION                    ",
@@ -359,6 +398,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (lowerCmd === "certifications") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "           CERTIFICATIONS & ACHIEVEMENTS          ",
@@ -372,6 +412,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (lowerCmd === "contact") {
+      setCurrentProjectLink("")
       output = [
         "==================================================",
         "                     CONTACT                      ",
@@ -389,6 +430,7 @@ export default function TerminalPortfolio() {
         "",
       ]
     } else if (trimmedCmd === "clear") {
+      setCurrentProjectLink("")
       setHistory([])
       setInput("")
       setCursorPosition(0)
