@@ -52,7 +52,7 @@ const COMMANDS: CommandInfo[] = [
   { name: "ls", desc: "List files", group: "System", aliases: ["dir"] },
   { name: "cd", usage: "cd <dir>", desc: "Change directory", group: "System" },
   { name: "cat", usage: "cat <file>", desc: "Print a file", group: "System", aliases: ["type"] },
-  { name: "theme", usage: "theme [name]", desc: "Change the color theme", group: "System" },
+  { name: "theme", usage: "theme <name>", desc: "Change the color theme", group: "System" },
   { name: "history", desc: "Commands you have run", group: "System" },
   { name: "neofetch", desc: "System info, terminal style", group: "System" },
   { name: "whoami", desc: "Who are you?", group: "System" },
@@ -111,6 +111,14 @@ const toneClass: Record<Tone, string> = {
   warning: "text-[var(--t-warning)]",
   error: "text-[var(--t-error)]",
   muted: "text-[var(--t-muted)]",
+}
+
+// Wrapped bullet/numbered lines continue under their text, not at the left edge.
+const hangingIndent = (text: string): React.CSSProperties | undefined => {
+  const marker = text.match(/^\s*(?:[•✓→] |\d+\. )/)
+  if (!marker) return undefined
+  const n = marker[0].length
+  return { paddingLeft: `${n}ch`, textIndent: `-${n}ch` }
 }
 
 // Only digits, operators and parens reach Function(), so this can't run arbitrary code.
@@ -989,6 +997,7 @@ export default function TerminalPortfolio() {
                       : "whitespace-pre-wrap break-words",
                     toneClass[line.tone ?? "default"],
                   )}
+                  style={line.art ? undefined : hangingIndent(line.text)}
                 >
                   {line.text ? renderRich(line.text) : "\u00A0"}
                 </div>

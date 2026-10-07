@@ -17,7 +17,7 @@ Boot sequence · 30+ commands · fake filesystem · 6 themes · snake · live Gi
 
 <br />
 
-<img src="terminal-portfolio.png" alt="Terminal Portfolio screenshot" width="900" />
+<img src="docs/screenshots/hero.png" alt="Terminal Portfolio welcome screen with ASCII banner" width="900" />
 
 </div>
 
@@ -26,6 +26,7 @@ Boot sequence · 30+ commands · fake filesystem · 6 themes · snake · live Gi
 ## Contents
 
 - [Try it in 30 seconds](#-try-it-in-30-seconds)
+- [Screenshots](#-screenshots)
 - [Features](#-features)
 - [Command reference](#-command-reference)
 - [Keyboard shortcuts](#-keyboard-shortcuts)
@@ -53,6 +54,54 @@ snake           # you know what to do
 ```
 
 Don't want to type? **Underlined text is clickable**, and on phones there's a quick-command bar above the footer.
+
+---
+
+## 📸 Screenshots
+
+<table>
+<tr>
+<td width="50%" align="center">
+<img src="docs/screenshots/boot.png" alt="BIOS-style boot sequence in the amber theme" />
+<br /><sub><b>Boot sequence</b> · <code>amber</code> theme</sub>
+</td>
+<td width="50%" align="center">
+<img src="docs/screenshots/neofetch.png" alt="neofetch output in the Dracula theme" />
+<br /><sub><b><code>neofetch</code></b> + <code>quote</code> · <code>dracula</code> theme</sub>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img src="docs/screenshots/project.png" alt="Project case study for Mirchi35 Studio in the Ubuntu theme" />
+<br /><sub><b>Project case study</b> · <code>project 1</code> · <code>ubuntu</code> theme</sub>
+</td>
+<td align="center">
+<img src="docs/screenshots/filesystem.png" alt="ls and cd in the fake filesystem, PowerShell theme" />
+<br /><sub><b>Fake filesystem</b> · <code>ls</code>, <code>cd</code>, <code>cat</code> · <code>powershell</code> theme</sub>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img src="docs/screenshots/snake.png" alt="Snake game in progress" />
+<br /><sub><b>Snake</b> · <code>snake</code></sub>
+</td>
+<td align="center">
+<img src="docs/screenshots/matrix.png" alt="Full-screen Matrix digital rain" />
+<br /><sub><b>Matrix rain</b> · <code>matrix</code></sub>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img src="docs/screenshots/themes.png" alt="Theme list, calculator and coin flip in the amber theme" />
+<br /><sub><b>Themes, <code>calc</code> & <code>coinflip</code></b></sub>
+</td>
+<td align="center">
+<img src="docs/screenshots/mobile-welcome.png" alt="Mobile welcome screen with quick-command bar" width="45%" />
+<img src="docs/screenshots/mobile-project.png" alt="Mobile project detail view" width="45%" />
+<br /><sub><b>Mobile</b> · quick-command bar & wrapped output</sub>
+</td>
+</tr>
+</table>
 
 ---
 
@@ -291,6 +340,7 @@ terminal-portfolio/
 ├── lib/
 │   ├── portfolio.ts          # ✏️ All portfolio content lives here
 │   └── themes.ts             # Color themes
+├── docs/screenshots/         # README images
 └── public/assets/            # Resume PDF
 ```
 
